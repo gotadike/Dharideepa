@@ -1,10 +1,13 @@
+from http.client import responses
+
 import httpx
 
 from supporting_files.common_variables import CommonVariables
-
+from supporting_files.utils import utils_pt
 
 class SupportMethods:
     url = CommonVariables()
+    utils = utils_pt()
 
     async def payload_for_post(self):
         payload = {
@@ -15,12 +18,11 @@ class SupportMethods:
         return payload
 
     async def call_post_method(self):
-        async with httpx.AsyncClient() as client:
-            payload = await self.payload_for_post()
-            response = await client.post(self.url.url, json= payload)
-            return response
+        payload = await self.payload_for_post()
+        response = await self.utils.api_methods("POST", self.url.url ,payload)
+        return response
 
     async def call_get_method(self):
-        async with httpx.AsyncClient() as client:
-            response = await client.get(f"{self.url.url}/1")
-            return response
+        urls = f"{self.url.url}/1"
+        response = await self.utils.api_methods("GET", urls, "")
+        return response
