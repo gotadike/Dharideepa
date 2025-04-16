@@ -1,7 +1,7 @@
 import json
 import pytest_asyncio
 from playwright.async_api import async_playwright
-from supporting_files import support_methods  # where GLOBAL_BEARER_TOKEN is defined
+from supporting_files import support_api_methods  # where GLOBAL_BEARER_TOKEN is defined
 
 # 🔐 Fixture 1: Login and return context + browser
 @pytest_asyncio.fixture(scope="session")

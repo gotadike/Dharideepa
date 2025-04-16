@@ -1,5 +1,5 @@
 import pytest
-from supporting_files.support_methods import SupportMethods
+from supporting_files.support_api_methods import SupportMethods
 
 @pytest.fixture(scope="class")
 def support_methods_fixture(bearer_token):
