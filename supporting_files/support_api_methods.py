@@ -11,14 +11,15 @@ class SupportMethods:
 
     def __init__(self, token):
         self.token = token
+        self.bearer_token = f"Bearer {self.token}"
         self.url = CommonVariables()
         self.utils = utils_pt()
-        self.header = {"Authorization": self.token, "x-service-id": "vod"}
+        #self.header = {"Authorization": self.bearer_token, "x-service-id": "vod"}
         self.CSV_FILE_PATH = 'supporting_files/test_case/assets_dump.csv'
 
         self.header = {
             "accept": "application/json, text/plain, */*",
-            "authorization": self.token,
+            "authorization": self.bearer_token,
             "content-type": "application/json",
             "x-service-id": "vod"
         }
@@ -81,6 +82,6 @@ class SupportMethods:
 
     async def make_post_request(self, url, payload, header):
         print(f"make_post_request response: {url} payload {payload} header {header}")
-        response = await self.utils.api_methods("POST", url, payload,header)
+        response = await self.utils.api_methods("POST", url, payload,self.header)
         print(f"make_post_request response: {response}")
         return response
