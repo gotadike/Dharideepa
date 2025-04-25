@@ -21,3 +21,8 @@ class TestAapiVvod:
     async def test_post(self):
         response = await self.support.call_post_method()
         assert response.status_code == 201
+
+    @pytest.mark.asyncio
+    async def test_delivery_post_api(self):
+        response = await self.support.create_for_post_delivery()
+        assert response.status_code == 201
