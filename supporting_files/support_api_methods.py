@@ -16,6 +16,14 @@ class SupportMethods:
         self.header = {"Authorization": self.token, "x-service-id": "vod"}
         self.CSV_FILE_PATH = 'supporting_files/test_case/assets_dump.csv'
 
+        self.header = {
+            "accept": "application/json, text/plain, */*",
+            "authorization": self.token,
+            "content-type": "application/json",
+            "x-service-id": "vod"
+        }
+
+
     async def payload_for_post(self):
         return {
             "title": "foo",
@@ -38,42 +46,38 @@ class SupportMethods:
             # Read only the specified columns from CSV
             df = pd.read_csv(CSV_FILE_PATH,
                              usecols=['amg_id', 'asset_id', 'platform_id', 'is_mdu_redelivery', 'not_billable'])
+            print(f"df: {df}")
             return df
         except Exception as e:
             print(f"Error reading CSV file: {e}")
             return None
 
-    async def create_json_payload(row):
-    # Construct JSON payload from row data
+    async def create_json_payload(self, row):
         payload = [{
-        "amg_id": row['amg_id'],
-        "asset_id": row['asset_id'],
-        "platform_id": row['platform_id'],
-        "is_mdu_redelivery": row['is_mdu_redelivery'],
-        "not_billable": row['not_billable']
+            "amg_id": row['amg_id'],
+            "asset_id": row['asset_id'],
+            "platform_id": row['platform_id'],
+            "is_mdu_redelivery": row['is_mdu_redelivery'],
+            "not_billable": row['not_billable'],
+            "not_billable": row['not_billable']
         }]
+        print(f"payload: {payload}")
         return payload
 
     async def create_for_post_delivery(self):
-        df = self.read_csv_data(self.CSV_FILE_PATH)
+        df = await self.read_csv_data(self.CSV_FILE_PATH)
         if df is None:
             return
-        # Process each row
+
         for index, row in df.iterrows():
-            # Create JSON payload
             payload = await self.create_json_payload(row)
-
-            # Make POST request
             response = await self.make_post_request(self.url.url, payload, self.token)
-
-            # Optional: Process response if needed
+            print(f"response: {response}")
             if response:
                 print(f"Response for amg_id {row['amg_id']}: {response}")
                 return response
-            # Delay to avoid overwhelming the API
             time.sleep(1)
 
     async def make_post_request(self, url, payload, token):
-        payload = await self.create_json_payload()
-        response = await self.utils.api_methods("POST", self.url.url, payload, self.header)
+        response = await self.utils.api_methods("POST", url, payload, self.header)
         return response
