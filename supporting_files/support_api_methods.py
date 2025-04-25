@@ -36,7 +36,7 @@ class SupportMethods:
     async def read_csv_data(self, CSV_FILE_PATH):
         try:
             # Read only the specified columns from CSV
-            df = await pd.read_csv(CSV_FILE_PATH,
+            df = pd.read_csv(CSV_FILE_PATH,
                              usecols=['amg_id', 'asset_id', 'platform_id', 'is_mdu_redelivery', 'not_billable'])
             return df
         except Exception as e:
@@ -55,7 +55,7 @@ class SupportMethods:
         return payload
 
     async def create_for_post_delivery(self):
-        df = await self.read_csv_data(self.CSV_FILE_PATH)
+        df = self.read_csv_data(self.CSV_FILE_PATH)
         if df is None:
             return
         # Process each row
