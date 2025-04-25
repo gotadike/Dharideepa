@@ -59,26 +59,46 @@ class SupportMethods:
             "asset_id": row['asset_id'],
             "platform_id": row['platform_id'],
             "is_mdu_redelivery": row['is_mdu_redelivery'],
-            "not_billable": row['not_billable'],
             "not_billable": row['not_billable']
         }]
         print(f"payload: {payload}")
         return payload
 
+    # async def create_for_post_delivery(self):
+    #     df = await self.read_csv_data(self.CSV_FILE_PATH)
+    #     if df is None:
+    #         return
+    #
+    #     for index, row in df.iterrows():
+    #         payload = await self.create_json_payload(row)
+    #         print(f"payload inside: {payload}")
+    #         response = await self.make_post_request(self.url.url, payload, self.token)
+    #         print(f"response: {response}")
+    #         if response:
+    #             print(f"Response for amg_id {row['amg_id']}: {response}")
+    #             return response
+    #         time.sleep(2)
+
     async def create_for_post_delivery(self):
         df = await self.read_csv_data(self.CSV_FILE_PATH)
         if df is None:
-            return
+            return None
 
-        for index, row in df.iterrows():
-            payload = await self.create_json_payload(row)
-            print(f"payload inside: {payload}")
-            response = await self.make_post_request(self.url.url, payload, self.token)
-            print(f"response: {response}")
-            if response:
-                print(f"Response for amg_id {row['amg_id']}: {response}")
-                return response
-            time.sleep(1)
+        payload_list = []
+
+        for _, row in df.iterrows():
+            payload = {
+                "amg_id": row['amg_id'],
+                "asset_id": row['asset_id'],
+                "platform_id": row['platform_id'],
+                "is_mdu_redelivery": row['is_mdu_redelivery'],
+                "not_billable": row['not_billable']
+            }
+            payload_list.append(payload)
+            #payload = [li_payload]
+        # Make one POST request with the full list
+        response = await self.make_post_request(self.url.url, payload_list, self.token)
+        return response
 
     async def make_post_request(self, url, payload, header):
         print(f"make_post_request response: {url} payload {payload} header {header}")

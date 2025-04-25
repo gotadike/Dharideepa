@@ -24,5 +24,6 @@ class TestAapiVvod:
 
     @pytest.mark.asyncio
     async def test_delivery_post_api(self):
-        response = await self.support.create_for_post_delivery()
-        assert response.status_code == 200
+        responses = await self.support.create_for_post_delivery()
+        assert responses.status_code == 200
+
