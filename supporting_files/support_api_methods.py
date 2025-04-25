@@ -71,6 +71,7 @@ class SupportMethods:
 
         for index, row in df.iterrows():
             payload = await self.create_json_payload(row)
+            print(f"payload inside: {payload}")
             response = await self.make_post_request(self.url.url, payload, self.token)
             print(f"response: {response}")
             if response:
@@ -78,6 +79,8 @@ class SupportMethods:
                 return response
             time.sleep(1)
 
-    async def make_post_request(self, url, payload, token):
-        response = await self.utils.api_methods("POST", url, payload, self.header)
+    async def make_post_request(self, url, payload, header):
+        print(f"make_post_request response: {url} payload {payload} header {header}")
+        response = await self.utils.api_methods("POST", url, payload,header)
+        print(f"make_post_request response: {response}")
         return response
