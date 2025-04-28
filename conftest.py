@@ -12,7 +12,7 @@ async def login_context():
     context = await browser.new_context()
     page = await context.new_page()
 
-    await page.goto("https://integration.amaginow.tv/signin")
+    await page.goto("https://now3.amagi.tv/signin")
     await page.fill('input[id="domainName"]', 'prod_push')
     await page.click('button[type="submit"]')
     await page.fill('input[name="username"]', 'veeresh.pn+prod_push@amagi.com')
