@@ -1,13 +1,3 @@
-﻿amg_id,asset_id,platform_id,is_mdu_redelivery,not_billable
-amg09105,vod_mdu_2,amgplt0096,FALSE,FALSE
-amg09105,vod_mdu_2,amgplt0096,TRUE,TRUE
-amg09105,vod_mdu_3,amgplt0096,FALSE,FALSE
-amg09105,vod_mdu_5,amgplt0096,TRUE,TRUE
-amg09105,vod_mdu_3,amgplt0096,FALSE,FALSE
-amg09105,vod_mdu_3,amgplt0096,TRUE,TRUE
-amg09105,vod_mdu_3,amgplt0096,FALSE,FALSE
-amg09105,vod_mdu_5,amgplt0096,TRUE,TRUE
-amg09105,vod_mdu_5,amgplt0096,FALSE,FALSE
-amg09105,vod_mdu_5,amgplt0096,TRUE,TRUE
-amg09105,vod_mdu_2,amgplt0096,FALSE,FALSE
-amg09105,vod_mdu_2,amgplt0096,TRUE,TRUE
+amg_id,asset_id,platform_id,is_mdu_redelivery,not_billable
+amg00497,DA27672,amgplt0023,FALSE,TRUE
+amg00497,DA27671,amgplt0023,TRUE,FALSE
